@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
 
+var categoriesCheckEmpty = function(categories){
+    if(categories.length === 0){return false}
+    else {return true};
+}
+
 // Schema
 const gameSchema = new mongoose.Schema({
     name: {
@@ -17,7 +22,7 @@ const gameSchema = new mongoose.Schema({
     categories: {
         type: [String],
         required: true,
-        minLength: 1,
+        validate: [categoriesCheckEmpty, 'Add at least one categorie'],
         enum: ['adventure', 'action', 'multiplayer', 'race', 'role games', 'simulation', 'shooting', 'sports', 'strategy']
     },
     stock: {
